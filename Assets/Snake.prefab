@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2430382661359428582}
   - component: {fileID: 461040286126080954}
-  - component: {fileID: 3265264272741395954}
   - component: {fileID: -344710805224112197}
   - component: {fileID: 4807323633909624774}
   - component: {fileID: -5766524508398799434}
+  - component: {fileID: -6519307687455876608}
   m_Layer: 0
   m_Name: Snake
   m_TagString: Untagged
@@ -88,18 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3265264272741395954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6845722925878837348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902843009799f8948bdd34773bdf8d5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &-344710805224112197
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -174,3 +162,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2255fb06c24530047a66dc2c53f53d36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6519307687455876608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6845722925878837348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b0d2a2f9bd9f84798f57a711df0e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitDammage: 1
+  poisonDammage: 0.25

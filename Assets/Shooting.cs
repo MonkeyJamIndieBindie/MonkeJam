@@ -8,6 +8,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] GameObject bullet;
     [SerializeField] PlayerType type;
     [SerializeField] float shootingPower;
+    [SerializeField] float coolDown;
 
     [SerializeField] bool canShoot;
     [SerializeField] Transform launchPoint;
@@ -44,7 +45,7 @@ public class Shooting : MonoBehaviour
             case PlayerType.Ironmouse:
                 if (canShoot == true)
                 {
-                    
+                    StartCoroutine(ShootIronmouse());
                 }
                 break;
             case PlayerType.Chris:
@@ -62,7 +63,7 @@ public class Shooting : MonoBehaviour
             case PlayerType.Garnt:
                 if (canShoot == true)
                 {
-                    
+                    StartCoroutine(ShootGarnt());
                 }
                 break;
             default:
@@ -70,6 +71,21 @@ public class Shooting : MonoBehaviour
         }
     }
 
+    void FindClosestEnemy()
+    {
+        float distanceToClosestEnemy = Mathf.Infinity;
+        EnemyBase[] allEnemies = GameObject.FindObjectsOfType<EnemyBase>();
+
+        foreach (EnemyBase currentEnemy in allEnemies)
+        {
+            float distanceToEnemy = (currentEnemy.transform.position - this.transform.position).sqrMagnitude;
+            if (distanceToEnemy < distanceToClosestEnemy)
+            {
+                distanceToClosestEnemy = distanceToEnemy;
+                enemy = currentEnemy.transform;
+            }
+        }
+    }
 
     void DrawTrejectory()
     {
@@ -93,7 +109,7 @@ public class Shooting : MonoBehaviour
         GameObject banana = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
         banana.GetComponent<Banana>().enemy = enemy;
         banana.GetComponent<Banana>().connor = this.transform;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(coolDown);
         canShoot = true;
     }
 
@@ -103,11 +119,11 @@ public class Shooting : MonoBehaviour
         launchPoint.rotation = Quaternion.Euler(0,0,Random.Range(20, 71));
         DrawTrejectory();
         lineRender.enabled = true;
-        yield return new WaitForSeconds(.75f);
+        yield return new WaitForSeconds(coolDown / 3 * 2);
         GameObject famichicki = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
         famichicki.GetComponent<Rigidbody2D>().velocity = shootingPower * launchPoint.right;
         lineRender.enabled = false;
-        yield return new WaitForSeconds(.75f);
+        yield return new WaitForSeconds(coolDown / 3 * 2);
         canShoot = true;
     }
 
@@ -117,11 +133,33 @@ public class Shooting : MonoBehaviour
         launchPoint.rotation = Quaternion.Euler(0, 0, Random.Range(20, 71));
         DrawTrejectory();
         lineRender.enabled = true;
-        yield return new WaitForSeconds(.75f);
+        yield return new WaitForSeconds(coolDown / 3 * 2);
         GameObject famichicki = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
         famichicki.GetComponent<Rigidbody2D>().velocity = shootingPower * launchPoint.right;
         lineRender.enabled = false;
-        yield return new WaitForSeconds(.75f);
+        yield return new WaitForSeconds(coolDown / 3 * 2);
+        canShoot = true;
+    }
+
+
+    IEnumerator ShootIronmouse()
+    {
+        canShoot = false;
+        FindClosestEnemy();
+        if (Vector2.Distance(transform.position, enemy.position) < 25)
+        {
+            GameObject heartBullet = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
+            heartBullet.GetComponent<HeartBullet>().enemy = enemy;
+            yield return new WaitForSeconds(coolDown);
+        }
+        canShoot = true;
+    }
+
+    IEnumerator ShootGarnt()
+    {
+        canShoot = false;
+        Instantiate(bullet, new Vector2(Random.Range(-10, 7), 0), Quaternion.identity);
+        yield return new WaitForSeconds(coolDown);
         canShoot = true;
     }
 }

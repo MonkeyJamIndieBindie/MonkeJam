@@ -7,6 +7,7 @@ public class Banana : MonoBehaviour
     public Transform enemy;
     public Transform connor;
     private bool hit;
+    public float hitDammage;
 
     private void Update()
     {
@@ -27,7 +28,7 @@ public class Banana : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("BananaTurn"))
         {
             hit = true;
         }
