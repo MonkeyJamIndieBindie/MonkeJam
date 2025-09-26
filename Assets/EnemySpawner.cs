@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator SpawnEnemy()
     {
         makeEnemy = false;
-        Instantiate(enemy[0], transform.position, Quaternion.identity);
+        Instantiate(enemy[Random.Range(0,enemy.Length)], transform.position, Quaternion.identity);
         yield return new WaitForSeconds(5f);
         makeEnemy = true;
     }
