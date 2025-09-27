@@ -837,7 +837,7 @@ MonoBehaviour:
   moneyText: {fileID: 0}
   stratGame: 0
   buddyShooting: []
-  enemySpawner: {fileID: 0}
+  enemySpawner: {fileID: 1331224786}
   closeBetween: {fileID: 0}
   maxEnemyForWave: 0
   enemyKilledInWave: 0
@@ -2931,7 +2931,7 @@ MonoBehaviour:
   - {fileID: 6299093213839221649, guid: ee79d808acb645c459cbaeb15c1fe552, type: 3}
   - {fileID: 7785607276490788890, guid: 8ee83b3ec8308e747a0efc14a8685757, type: 3}
   makeEnemy: 0
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 611875003}
 --- !u!4 &1331224787
 Transform:
   m_ObjectHideFlags: 0
