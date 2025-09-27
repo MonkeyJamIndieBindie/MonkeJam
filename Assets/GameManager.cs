@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public float money;
     [SerializeField] TextMeshProUGUI moneyText;
-    public bool stratGame;
-    [SerializeField] Shooting[] buddyShooting;
+    public bool startGame;
+    public List<Shooting> buddyShooting;
     [SerializeField] EnemySpawner enemySpawner;
     [SerializeField] GameObject closeBetween;
 
@@ -25,30 +25,33 @@ public class GameManager : MonoBehaviour
         moneyText.text = money.ToString("0");
     }
 
-    public void StartTheWve()
+    public void StartTheWave()
     {
-        for (int i = 0; i < buddyShooting.Length; i++)
+        for (int i = 0; i < buddyShooting.Count; i++)
         {
-            buddyShooting[i].canShoot = true;
+            if (buddyShooting[i] != null) buddyShooting[i].canShoot = true;
+            else break;
         }
         enemySpawner.makeEnemy = true;
         closeBetween.SetActive(false);
+        startGame = true;
     }
 
     void EndWave()
     {
         StopAllCoroutines();
-        for (int i = 0; i < buddyShooting.Length; i++)
+        for (int i = 0; i < buddyShooting.Count; i++)
         {
-            buddyShooting[i].canShoot = false;
+            if(buddyShooting[i] != null) buddyShooting[i].canShoot = false;
         }
         enemySpawner.makeEnemy = false;
         closeBetween.SetActive(true);
+        startGame = false;
     }
 
-    private void Update()
+    public void CheckEndWave()
     {
-        if(maxEnemyForWave == enemyKilledInWave)
+        if(maxEnemyForWave == enemyKilledInWave && startGame == true)
         {
             EndWave();
         }

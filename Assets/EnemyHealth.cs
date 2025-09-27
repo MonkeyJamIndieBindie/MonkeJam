@@ -37,6 +37,7 @@ public class EnemyHealth : MonoBehaviour
         if(health <= 0)
         {
             gameManager.enemyKilledInWave++;
+            gameManager.CheckEndWave();
             Destroy(gameObject);
         }
     }
