@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 2775906760331047834}
   - component: {fileID: 2771717316381894155}
   - component: {fileID: 6534320680886060325}
+  - component: {fileID: 786535155303717098}
   m_Layer: 0
   m_Name: Chris
   m_TagString: Untagged
@@ -262,3 +263,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &786535155303717098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7664054349493561056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97eaafc9f14a6224a9e10fe567b27622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6534320680886060325}
+  shooting: {fileID: 2775906760331047834}
