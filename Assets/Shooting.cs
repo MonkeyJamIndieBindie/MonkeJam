@@ -10,13 +10,14 @@ public class Shooting : MonoBehaviour
     [SerializeField] float shootingPower;
     [SerializeField] float coolDown;
 
-    [SerializeField] bool canShoot;
+    public bool canShoot;
     [SerializeField] Transform launchPoint;
 
     [Header("Trajectory Display")]
     public LineRenderer lineRender;
     int linePoints = 175;
     float timeItervalPoints = .01f;
+
 
     public enum PlayerType
     {
@@ -25,11 +26,6 @@ public class Shooting : MonoBehaviour
         Chris,
         Joey,
         Garnt
-    }
-
-    private void Start()
-    {
-        //canShoot = true;
     }
 
     private void Update()

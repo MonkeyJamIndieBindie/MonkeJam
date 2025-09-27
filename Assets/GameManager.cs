@@ -1,25 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject[] towerBuddies;
+    public float money;
+    [SerializeField] TextMeshProUGUI moneyText;
+    public bool stratGame;
+    [SerializeField] Shooting[] buddyShooting;
+    [SerializeField] EnemySpawner enemySpawner;
+    [SerializeField] GameObject closeBetween;
 
-    public void OpenIronMouse()
+    public int maxEnemyForWave;
+    public int enemyKilledInWave;
+
+    private void Start()
     {
-        towerBuddies[0].SetActive(true);
+        UpdateMoney();
     }
-    public void OpenChris()
+
+    public void UpdateMoney()
     {
-        towerBuddies[1].SetActive(true);
+        moneyText.text = money.ToString("0");
     }
-    public void OpenGarnt()
+
+    public void StartTheWve()
     {
-        towerBuddies[2].SetActive(true);
+        for (int i = 0; i < buddyShooting.Length; i++)
+        {
+            buddyShooting[i].canShoot = true;
+        }
+        enemySpawner.makeEnemy = true;
+        closeBetween.SetActive(false);
     }
-    public void OpenJoey()
+
+    void EndWave()
     {
-        towerBuddies[3].SetActive(true);
+        StopAllCoroutines();
+        for (int i = 0; i < buddyShooting.Length; i++)
+        {
+            buddyShooting[i].canShoot = false;
+        }
+        enemySpawner.makeEnemy = false;
+        closeBetween.SetActive(true);
+    }
+
+    private void Update()
+    {
+        if(maxEnemyForWave == enemyKilledInWave)
+        {
+            EndWave();
+        }
     }
 }

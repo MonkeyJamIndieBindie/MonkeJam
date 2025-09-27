@@ -5,16 +5,18 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] enemy;
-    bool makeEnemy;
-    private IEnumerator Start()
+    public bool makeEnemy;
+    [SerializeField] GameManager gameManager;
+    int madeEnemy;
+    /*private IEnumerator Start()
     {
         yield return new WaitForSeconds(1.5f);
         makeEnemy = true;
-    }
+    }*/
 
     private void Update()
     {
-        if(makeEnemy == true)
+        if(makeEnemy == true && madeEnemy < gameManager.maxEnemyForWave)
         {
             StartCoroutine(SpawnEnemy());
         }
@@ -25,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
     {
         makeEnemy = false;
         Instantiate(enemy[Random.Range(0,enemy.Length)], transform.position, Quaternion.identity);
+        madeEnemy++;
         yield return new WaitForSeconds(5f);
         makeEnemy = true;
     }

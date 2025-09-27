@@ -5,7 +5,13 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] float health;
+    GameManager gameManager;
 
+
+    private void Start()
+    {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.GetComponent<FamichikiBullet>() != null)
@@ -30,6 +36,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if(health <= 0)
         {
+            gameManager.enemyKilledInWave++;
             Destroy(gameObject);
         }
     }
