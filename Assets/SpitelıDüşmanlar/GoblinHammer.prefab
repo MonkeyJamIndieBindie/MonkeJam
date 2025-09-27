@@ -188,6 +188,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpeed: 3
   hit: 0
+  enemyType: 0
+  coolDown: 3
+  dammage: 2
 --- !u!114 &8664194569169671450
 MonoBehaviour:
   m_ObjectHideFlags: 0

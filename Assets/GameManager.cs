@@ -11,13 +11,22 @@ public class GameManager : MonoBehaviour
     public List<Shooting> buddyShooting;
     [SerializeField] EnemySpawner enemySpawner;
     [SerializeField] GameObject closeBetween;
+    [SerializeField] TextMeshProUGUI heathText;
 
     public int maxEnemyForWave;
     public int enemyKilledInWave;
 
+    public float towerHealth;
+
     private void Start()
     {
         UpdateMoney();
+        UpdateHeath();
+    }
+
+    public void UpdateHeath()
+    {
+        heathText.text = towerHealth.ToString("0");
     }
 
     public void UpdateMoney()
@@ -40,7 +49,6 @@ public class GameManager : MonoBehaviour
     void EndWave()
     {
         StopAllCoroutines();
-        Debug.Log("Wave Durdu");
         for (int i = 0; i < buddyShooting.Count; i++)
         {
             if(buddyShooting[i] != null) buddyShooting[i].canShoot = false;

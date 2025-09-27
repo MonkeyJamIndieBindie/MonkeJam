@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6375456036167027193}
   - component: {fileID: 704030225980137720}
   - component: {fileID: 2560260216075034194}
+  - component: {fileID: 2893263607583805780}
   m_Layer: 3
   m_Name: GoblinSword
   m_TagString: Enemy
@@ -187,6 +188,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpeed: 3
   hit: 0
+  enemyType: 1
+  coolDown: 2
+  dammage: 2
 --- !u!114 &2560260216075034194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,3 +204,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+--- !u!95 &2893263607583805780
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299093213839221649}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4fd75c6629282644f919a1cf250c8a2d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

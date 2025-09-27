@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1163662402659096560}
   - component: {fileID: 2472956763820145265}
   - component: {fileID: 3289636876387739548}
+  - component: {fileID: 4281701214174661488}
   m_Layer: 3
   m_Name: GoblinRoll
   m_TagString: Enemy
@@ -187,6 +188,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemySpeed: 3
   hit: 0
+  enemyType: 2
+  coolDown: 0
+  dammage: 1
 --- !u!114 &3289636876387739548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,3 +204,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+--- !u!95 &4281701214174661488
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7697912922120270209}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 21b78ca91a6c32346be9f7c1fd5a6678, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

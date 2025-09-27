@@ -6,6 +6,14 @@ public class Destroy : MonoBehaviour
 {
     private void Start()
     {
-        Destroy(gameObject, 5f);
+        //Destroy(gameObject, 5f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Zemin"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2473503752773316978}
   - component: {fileID: 3460555264803047812}
   - component: {fileID: 6460491855069270997}
+  - component: {fileID: -7566358941484091367}
   m_Layer: 0
   m_Name: BodyPillow
   m_TagString: Untagged
@@ -172,3 +173,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDammage: 0
+--- !u!114 &-7566358941484091367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7765606977474895914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2255fb06c24530047a66dc2c53f53d36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
