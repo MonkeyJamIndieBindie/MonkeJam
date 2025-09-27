@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
   connor: {fileID: 0}
-  hitDammage: 1
+  hitDammage: 0
 --- !u!61 &1938472209557066358
 BoxCollider2D:
   m_ObjectHideFlags: 0

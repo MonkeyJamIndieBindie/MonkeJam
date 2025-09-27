@@ -8,9 +8,12 @@ public class EnemyWalk : MonoBehaviour
     public float enemySpeed;
     public bool hit;
 
+    Animator anim;
+
     private void Start()
     {
-        connor = GameObject.FindObjectOfType<Shooting>().transform;
+        connor = GameObject.FindGameObjectWithTag("Kale").transform;
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -18,6 +21,12 @@ public class EnemyWalk : MonoBehaviour
         if(Vector2.Distance(connor.position,transform.position) > 1.2f)
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(connor.position.x, transform.position.y), enemySpeed * Time.deltaTime);
+            anim.SetBool("Walk", true);
+        }
+        else
+        {
+            transform.position = this.transform.position;
+            anim.SetBool("Walk", false);
         }
         if(hit == true)
         {

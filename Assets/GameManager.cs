@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     void EndWave()
     {
         StopAllCoroutines();
+        Debug.Log("Wave Durdu");
         for (int i = 0; i < buddyShooting.Count; i++)
         {
             if(buddyShooting[i] != null) buddyShooting[i].canShoot = false;

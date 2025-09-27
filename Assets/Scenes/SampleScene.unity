@@ -1322,6 +1322,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3473668671204503511, guid: 8cca347980e347a43ba74c9768516539, type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 7781626857337618983}
+    - target: {fileID: 3473668671204503511, guid: 8cca347980e347a43ba74c9768516539, type: 3}
+      propertyPath: canShoot
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473668671204503511, guid: 8cca347980e347a43ba74c9768516539, type: 3}
+      propertyPath: coolDown
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 7366628292086792631, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: m_Name
       value: ConnorKale
@@ -1944,9 +1956,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy:
   - {fileID: 8790170913610463219, guid: f3cd758684d1ed94f851a260e5a3977f, type: 3}
-  - {fileID: 7697912922120270209, guid: 4bfb0688918336a4e8de69cab10822df, type: 3}
-  - {fileID: 6299093213839221649, guid: ee79d808acb645c459cbaeb15c1fe552, type: 3}
-  - {fileID: 7785607276490788890, guid: 8ee83b3ec8308e747a0efc14a8685757, type: 3}
   makeEnemy: 0
   gameManager: {fileID: 611875003}
 --- !u!4 &1331224787
@@ -2124,6 +2133,83 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94adab8de30495444a20be1c1be31f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1694187202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1694187204}
+  - component: {fileID: 1694187203}
+  m_Layer: 0
+  m_Name: KaleBoundry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &1694187203
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694187202}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 6.9844837}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 14.968967}
+  m_EdgeRadius: 0
+--- !u!4 &1694187204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694187202}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.25, y: -5.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1893978795
 GameObject:
   m_ObjectHideFlags: 0
@@ -2576,3 +2662,4 @@ SceneRoots:
   - {fileID: 611875004}
   - {fileID: 864556148}
   - {fileID: 1251029967}
+  - {fileID: 1694187204}

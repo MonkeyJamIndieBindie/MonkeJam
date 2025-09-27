@@ -18,6 +18,13 @@ public class Shooting : MonoBehaviour
     int linePoints = 175;
     float timeItervalPoints = .01f;
 
+    GameManager gameManager;
+
+
+    private void Start()
+    {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+    }
 
     public enum PlayerType
     {
@@ -33,31 +40,31 @@ public class Shooting : MonoBehaviour
         switch (type)
         {
             case PlayerType.Connor:
-                if(canShoot == true)
+                if(canShoot == true && gameManager.startGame == true)
                 {
                     StartCoroutine(ConnorShoot());
                 }
                 break;
             case PlayerType.Ironmouse:
-                if (canShoot == true)
+                if (canShoot == true && gameManager.startGame == true)
                 {
                     StartCoroutine(ShootIronmouse());
                 }
                 break;
             case PlayerType.Chris:
-                if (canShoot == true)
+                if (canShoot == true && gameManager.startGame == true)
                 {
                     StartCoroutine(ChrisShoot());
                 }
                 break;
             case PlayerType.Joey:
-                if (canShoot == true)
+                if (canShoot == true && gameManager.startGame == true)
                 {
                     StartCoroutine(JoeyShoot());
                 }
                 break;
             case PlayerType.Garnt:
-                if (canShoot == true)
+                if (canShoot == true && gameManager.startGame == true)
                 {
                     StartCoroutine(ShootGarnt());
                 }
