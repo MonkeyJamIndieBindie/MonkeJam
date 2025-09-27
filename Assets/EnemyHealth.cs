@@ -7,12 +7,13 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] float health;
     GameManager gameManager;
     Animator anim;
-
+    int enemyLoot;
 
     private void Start()
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
+        enemyLoot = Random.Range(1, 6);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -39,7 +40,10 @@ public class EnemyHealth : MonoBehaviour
         if(health <= 0)
         {
             gameManager.enemyKilledInWave++;
+            gameManager.money += enemyLoot;
+            gameManager.UpdateMoney();
             gameManager.CheckEndWave();
+            //ölüm animasyonu
             Destroy(gameObject);
         }
     }
@@ -49,7 +53,6 @@ public class EnemyHealth : MonoBehaviour
     {
         health -= dammage;
         CheckHealth();
-        //Eðer caný bittiyse olüm efekti
         anim.SetBool("Hurt", true);
         yield return new WaitForSeconds(.5f);
         anim.SetBool("Hurt", false);

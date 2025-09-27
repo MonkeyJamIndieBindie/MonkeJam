@@ -11,9 +11,6 @@ public class SnakeBullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //collision.gameObject.GetComponent<EnemyWalk>().enemySpeed -= 1;
-            //collision.gameObject.GetComponent<EnemyWalk>().hit = true;
-            Debug.Log("Enemy Poisoned");
             Destroy(gameObject);
         }
     }

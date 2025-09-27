@@ -86,6 +86,8 @@ public class EnemyWalk : MonoBehaviour
             if(enemyType == EnemyType.Roll)
             {
                 HurtTower();
+                manager.enemyKilledInWave++;
+                manager.CheckEndWave();
                 Destroy(gameObject);
             }
         }

@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
             else break;
         }
         enemySpawner.makeEnemy = true;
+        enemySpawner.madeEnemy = 0;
+        enemyKilledInWave = 0;
         closeBetween.SetActive(false);
         startGame = true;
     }

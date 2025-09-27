@@ -7,12 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject[] enemy;
     public bool makeEnemy;
     [SerializeField] GameManager gameManager;
-    int madeEnemy;
-    /*private IEnumerator Start()
-    {
-        yield return new WaitForSeconds(1.5f);
-        makeEnemy = true;
-    }*/
+    public int madeEnemy;
 
     private void Update()
     {

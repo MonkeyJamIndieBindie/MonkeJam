@@ -1291,7 +1291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1607987367558300296, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.6
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 1607987367558300296, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1335,11 +1335,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3473668671204503511, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: coolDown
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7366628292086792631, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: m_Name
       value: ConnorKale
+      objectReference: {fileID: 0}
+    - target: {fileID: 8938096666293889280, guid: 8cca347980e347a43ba74c9768516539, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1773,7 +1777,7 @@ Transform:
   m_GameObject: {fileID: 1251029966}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.75, y: -2, z: 0}
+  m_LocalPosition: {x: -14.75, y: -2.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1963,6 +1967,7 @@ MonoBehaviour:
   - {fileID: 6299093213839221649, guid: ee79d808acb645c459cbaeb15c1fe552, type: 3}
   makeEnemy: 0
   gameManager: {fileID: 611875003}
+  madeEnemy: 0
 --- !u!4 &1331224787
 Transform:
   m_ObjectHideFlags: 0
