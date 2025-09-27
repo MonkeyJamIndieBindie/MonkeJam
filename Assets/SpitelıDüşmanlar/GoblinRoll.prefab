@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe1630543131e141818ff0e15240eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 2
 --- !u!95 &4281701214174661488
 Animator:
   serializedVersion: 5

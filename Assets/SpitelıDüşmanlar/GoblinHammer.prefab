@@ -190,7 +190,7 @@ MonoBehaviour:
   hit: 0
   enemyType: 0
   coolDown: 3
-  dammage: 2
+  dammage: 4
 --- !u!114 &8664194569169671450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe1630543131e141818ff0e15240eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 6
 --- !u!95 &5410207102662205391
 Animator:
   serializedVersion: 5

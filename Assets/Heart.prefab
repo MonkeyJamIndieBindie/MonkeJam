@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
   shootPower: 5
-  hitDammage: 0
+  hitDammage: 0.5
 --- !u!114 &6421951472053326634
 MonoBehaviour:
   m_ObjectHideFlags: 0

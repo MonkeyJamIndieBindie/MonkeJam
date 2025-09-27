@@ -1335,7 +1335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3473668671204503511, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: coolDown
-      value: 200
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7366628292086792631, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: m_Name
@@ -1958,7 +1958,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy:
+  - {fileID: 8790170913610463219, guid: f3cd758684d1ed94f851a260e5a3977f, type: 3}
   - {fileID: 7697912922120270209, guid: 4bfb0688918336a4e8de69cab10822df, type: 3}
+  - {fileID: 6299093213839221649, guid: ee79d808acb645c459cbaeb15c1fe552, type: 3}
   makeEnemy: 0
   gameManager: {fileID: 611875003}
 --- !u!4 &1331224787

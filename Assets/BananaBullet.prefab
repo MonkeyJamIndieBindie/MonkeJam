@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
   connor: {fileID: 0}
-  hitDammage: 0
+  hitDammage: 0.5
 --- !u!50 &5147712732745889162
 Rigidbody2D:
   serializedVersion: 4
