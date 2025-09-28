@@ -18,6 +18,12 @@ public class GameManager : MonoBehaviour
 
     public float towerHealth;
 
+    [Header("Coin Settings")]
+    [SerializeField] Canvas mainCanvas;
+    [SerializeField] RectTransform moneyIconRect;
+    [SerializeField] float coinWaitBeforeMove = 1f;
+    [SerializeField] float coinMoveDuration = 0.6f;
+
     private void Start()
     {
         UpdateMoney();
@@ -53,7 +59,7 @@ public class GameManager : MonoBehaviour
         StopAllCoroutines();
         for (int i = 0; i < buddyShooting.Count; i++)
         {
-            if(buddyShooting[i] != null) buddyShooting[i].canShoot = false;
+            if (buddyShooting[i] != null) buddyShooting[i].canShoot = false;
         }
         enemySpawner.makeEnemy = false;
         closeBetween.SetActive(true);
@@ -62,9 +68,15 @@ public class GameManager : MonoBehaviour
 
     public void CheckEndWave()
     {
-        if(maxEnemyForWave == enemyKilledInWave && startGame == true)
+        if (maxEnemyForWave == enemyKilledInWave && startGame == true)
         {
             EndWave();
         }
     }
+
+    // Bunlarý CoinPickup çaðýracak
+    public RectTransform GetMoneyIconRect() => moneyIconRect;
+    public Canvas GetMainCanvas() => mainCanvas;
+    public float GetCoinWaitTime() => coinWaitBeforeMove;
+    public float GetCoinMoveDuration() => coinMoveDuration;
 }

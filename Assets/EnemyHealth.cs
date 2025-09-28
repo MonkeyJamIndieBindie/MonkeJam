@@ -1,72 +1,100 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] float health;
+    [SerializeField] GameObject coinWorldPrefab; // SpriteRenderer + Rigidbody2D + CoinPickup olmalý
+    [SerializeField] int minCoins = 2;
+    [SerializeField] int maxCoins = 4;
+
     GameManager gameManager;
     Animator anim;
-    int enemyLoot;
+    int enemyLoot; // bu düþmandan kaç para çýkacak (toplam)
 
-    private void Start()
+    void Start()
     {
-        gameManager = GameObject.FindObjectOfType<GameManager>();
+        gameManager = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
-        enemyLoot = Random.Range(1, 6);
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.GetComponent<FamichikiBullet>() != null)
-        {
-            StartCoroutine(GetHurt(collision.gameObject.GetComponent<FamichikiBullet>().hitDammage));
-        }
-        if (collision.gameObject.GetComponent<Banana>() != null)
-        {
-            StartCoroutine(GetHurt(collision.gameObject.GetComponent<Banana>().hitDammage));
-        }
-        if (collision.gameObject.GetComponent<HeartBullet>() != null)
-        {
-            StartCoroutine(GetHurt(collision.gameObject.GetComponent<HeartBullet>().hitDammage));
-        }
-        if (collision.gameObject.GetComponent<SnakeBullet>() != null)
-        {
-            StartCoroutine(GetPoisoned(collision.gameObject.GetComponent<SnakeBullet>().hitDammage, collision.gameObject.GetComponent<SnakeBullet>().poisonDammage));
-        }
-
-    }
-    private void CheckHealth()
-    {
-        if(health <= 0)
-        {
-            gameManager.enemyKilledInWave++;
-            gameManager.money += enemyLoot;
-            gameManager.UpdateMoney();
-            gameManager.CheckEndWave();
-            //ölüm animasyonu
-            Destroy(gameObject);
-        }
+        enemyLoot = Random.Range(1, 6); // ister Inspector’a da alabilirsin
     }
 
-    
-    IEnumerator GetHurt(float dammage)
+    void OnTriggerEnter2D(Collider2D c)
     {
-        health -= dammage;
+        var fami = c.GetComponent<FamichikiBullet>();
+        if (fami) { StartCoroutine(GetHurt(fami.hitDammage)); return; }
+
+        var banana = c.GetComponent<Banana>();
+        if (banana) { StartCoroutine(GetHurt(banana.hitDammage)); return; }
+
+        var heart = c.GetComponent<HeartBullet>();
+        if (heart) { StartCoroutine(GetHurt(heart.hitDammage)); return; }
+
+        var snake = c.GetComponent<SnakeBullet>();
+        if (snake) { StartCoroutine(GetPoisoned(snake.hitDammage, snake.poisonDammage)); return; }
+    }
+
+    void CheckHealth()
+    {
+        if (health > 0) return;
+        StartCoroutine(DieAndSpawnCoins());
+    }
+
+    IEnumerator DieAndSpawnCoins()
+    {
+        // Ýsteðe baðlý ölüm animasyonu
+        // if (anim) anim.SetTrigger("Die");
+
+        // Kaç coin düþecek?
+        int coinCount = Mathf.Clamp(Random.Range(minCoins, maxCoins + 1), 1, 50);
+
+        // Toplam loot’u coin’lere daðýt (mümkünse eþit)
+        int baseVal = Mathf.Max(1, enemyLoot / coinCount);
+        int rem = Mathf.Max(0, enemyLoot - baseVal * coinCount);
+
+        for (int i = 0; i < coinCount; i++)
+        {
+            int value = baseVal + (i < rem ? 1 : 0);
+
+            if (coinWorldPrefab != null)
+            {
+                var coin = Instantiate(coinWorldPrefab, transform.position, Quaternion.identity);
+                var cp = coin.GetComponent<CoinPickup>();
+                if (cp != null) cp.Initialize(gameManager, value);
+            }
+            else
+            {
+                Debug.LogWarning("coinWorldPrefab atanmadý.", this);
+            }
+        }
+
+        // Dalgayý say ama parayý burada EKLEME; coin’ler UI’ya ulaþýnca eklenecek
+        gameManager.enemyKilledInWave++;
+        gameManager.CheckEndWave();
+
+        Destroy(gameObject);
+        yield return null;
+    }
+
+    IEnumerator GetHurt(float dmg)
+    {
+        health -= dmg;
         CheckHealth();
-        anim.SetBool("Hurt", true);
-        yield return new WaitForSeconds(.5f);
-        anim.SetBool("Hurt", false);
+        if (anim)
+        {
+            anim.SetBool("Hurt", true);
+            yield return new WaitForSeconds(0.5f);
+            anim.SetBool("Hurt", false);
+        }
     }
 
-    IEnumerator GetPoisoned(float dammage, float poisonDammage)
+    IEnumerator GetPoisoned(float dmg, float poison)
     {
-        StartCoroutine(GetHurt(dammage));
-        CheckHealth();
+        yield return StartCoroutine(GetHurt(dmg));
         for (int i = 0; i < 3; i++)
         {
-            yield return new WaitForSeconds(.45f);
-            StartCoroutine(GetHurt(poisonDammage));
-            CheckHealth();
+            yield return new WaitForSeconds(0.45f);
+            yield return StartCoroutine(GetHurt(poison));
         }
     }
 }
