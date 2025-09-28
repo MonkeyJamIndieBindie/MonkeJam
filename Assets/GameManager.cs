@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
 
     public float towerHealth;
 
+    public Vector2[] levelHardnes;
+    public int levelCount;
+
     [Header("Coin Settings")]
     [SerializeField] Canvas mainCanvas;
     [SerializeField] RectTransform moneyIconRect;
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
         }
         enemySpawner.makeEnemy = false;
         closeBetween.SetActive(true);
+        levelCount++;
         startGame = false;
     }
 

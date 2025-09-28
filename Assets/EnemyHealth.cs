@@ -17,6 +17,7 @@ public class EnemyHealth : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
         enemyLoot = Random.Range(1, 6); // ister Inspector’a da alabilirsin
+        health *= gameManager.levelHardnes[gameManager.levelCount].x;
     }
 
     void OnTriggerEnter2D(Collider2D c)

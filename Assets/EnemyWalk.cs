@@ -31,6 +31,7 @@ public class EnemyWalk : MonoBehaviour
         connor = GameObject.FindGameObjectWithTag("Kale").transform;
         anim = GetComponent<Animator>();
         manager = GameObject.FindObjectOfType<GameManager>();
+        dammage *= manager.levelHardnes[manager.levelCount].y;
     }
 
     private void Update()
@@ -51,7 +52,7 @@ public class EnemyWalk : MonoBehaviour
                 transform.position = this.transform.position;
                 if(canHit == true)
                 {
-                    //uxakçý attack
+                    //uzakçý attack
                 }
             }
         }
