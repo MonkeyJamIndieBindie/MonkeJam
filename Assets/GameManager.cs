@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public bool startGame;
     public List<Shooting> buddyShooting;
     [SerializeField] EnemySpawner enemySpawner;
-    [SerializeField] GameObject closeBetween;
+    [SerializeField] GameObject closeBetween;          // WaveUIAnimator bu objede
     [SerializeField] TextMeshProUGUI heathText;
 
     public int maxEnemyForWave;
@@ -27,10 +27,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] float coinWaitBeforeMove = 1f;
     [SerializeField] float coinMoveDuration = 0.6f;
 
-    private void Start()
+    void Start()
     {
         UpdateMoney();
         UpdateHeath();
+
+        // Ýlk giriþ: Dim yavaþça gelir, baþlýk yok, paneller sýrayla içeri
+        var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
+        if (ui != null) ui.PlayIntro();
     }
 
     public void UpdateHeath()
@@ -50,35 +54,42 @@ public class GameManager : MonoBehaviour
             if (buddyShooting[i] != null) buddyShooting[i].canShoot = true;
             else break;
         }
+
         enemySpawner.makeEnemy = true;
         enemySpawner.madeEnemy = 0;
         enemyKilledInWave = 0;
-        closeBetween.SetActive(false);
+
+        // Paneller dýþarý, dim hýzlýca kapanýr (obje aktif kalýr)
+        var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
+        if (ui != null) ui.PlayStartWave();
+
         startGame = true;
     }
 
     void EndWave()
     {
         StopAllCoroutines();
+
         for (int i = 0; i < buddyShooting.Count; i++)
-        {
             if (buddyShooting[i] != null) buddyShooting[i].canShoot = false;
-        }
+
         enemySpawner.makeEnemy = false;
-        closeBetween.SetActive(true);
+
+        // Dim yavaþça gel
+        var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
+        if (ui != null) ui.PlayEndWave();
+
         levelCount++;
         startGame = false;
     }
 
     public void CheckEndWave()
     {
-        if (maxEnemyForWave == enemyKilledInWave && startGame == true)
-        {
+        if (maxEnemyForWave == enemyKilledInWave && startGame)
             EndWave();
-        }
     }
 
-    // Bunlarý CoinPickup çaðýracak
+    // CoinPickup çaðýracak
     public RectTransform GetMoneyIconRect() => moneyIconRect;
     public Canvas GetMainCanvas() => mainCanvas;
     public float GetCoinWaitTime() => coinWaitBeforeMove;
