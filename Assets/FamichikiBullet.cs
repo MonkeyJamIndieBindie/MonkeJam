@@ -30,6 +30,7 @@ public class FamichikiBullet : MonoBehaviour
         transform.GetComponent<Rigidbody2D>().gravityScale = 0;
         transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         GetComponent<CircleCollider2D>().radius = 2;
+        transform.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
         yield return new WaitForSeconds(.5f);
         Destroy(gameObject);
     }

@@ -122,6 +122,7 @@ public class Shooting : MonoBehaviour
         FindClosestEnemy();
         launchPoint.rotation = Quaternion.Euler(0,0,Random.Range(20, 71));
         lineRender.enabled = true;
+        DrawTrejectory();
         yield return new WaitForSeconds(coolDown / 3 * 2);
         GameObject famichicki = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
         famichicki.GetComponent<Rigidbody2D>().velocity = shootingPower * launchPoint.right;
