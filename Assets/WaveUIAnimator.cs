@@ -134,7 +134,7 @@ public class WaveUIAnimator : MonoBehaviour
         PlacePanelsOffscreen();
 
         seq = DOTween.Sequence();
-
+        MusicManager.Instance.PlayStateMusic(GameState.Market);
         // Dim yavaþça gelsin
         if (dimBg) seq.Join(dimBg.DOFade(dimTargetAlpha, inDuration));
 

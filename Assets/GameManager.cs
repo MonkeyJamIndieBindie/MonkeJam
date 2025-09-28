@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         UpdateHeath();
 
         var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
-        if (ui != null) ui.PlayIntro();
+        if (ui != null) ui.PlayIntro(); // Ýlk giriþ: dim + paneller (baþlýk yok)
     }
 
     public void UpdateHeath()
@@ -54,20 +54,19 @@ public class GameManager : MonoBehaviour
         moneyText.text = money.ToString("0");
     }
 
-    // >>> YENÝ: Para artýþý için tek giriþ kapýsý
+    // Para artýþý için tek giriþ kapýsý
     public void OnMoneyGained(float amount)
     {
         money += amount;
         UpdateMoney();
 
         if (moneyUIFx != null)
-        {
             moneyUIFx.PlayGain(amount);
-        }
     }
 
     public void StartTheWave()
     {
+        MusicManager.Instance.PlayStateMusic(GameState.StartWave);
         for (int i = 0; i < buddyShooting.Count; i++)
         {
             if (buddyShooting[i] != null) buddyShooting[i].canShoot = true;
@@ -78,21 +77,36 @@ public class GameManager : MonoBehaviour
         enemySpawner.madeEnemy = 0;
         enemyKilledInWave = 0;
 
+        // UI: paneller yukarý, dim kapanýr
         var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
         if (ui != null) ui.PlayStartWave();
+
+        // Kamera: kýsa sarsýntý + ardýndan yumuþak mikro hareket ve hafif zoom-in
+        var camZoom = Camera.main != null ? Camera.main.GetComponent<CameraShakeZoom>() : null;
+        if (camZoom != null)
+        {
+            camZoom.StartWaveShake();     // kýsa, rahatsýz etmeyen sarsýntý
+            camZoom.BeginBattleAmbient(); // soft drift + hafif yakýnlaþma
+        }
 
         startGame = true;
     }
 
     void EndWave()
     {
-        StopAllCoroutines();
 
+        StopAllCoroutines();
+        MusicManager.Instance?.PlayStateMusic(GameState.EndWave, instantIn: true);
         for (int i = 0; i < buddyShooting.Count; i++)
             if (buddyShooting[i] != null) buddyShooting[i].canShoot = false;
 
         enemySpawner.makeEnemy = false;
 
+        // Kamera: battle ambient'i kapat ve kamerayý orijinale döndür
+        var camZoom = Camera.main != null ? Camera.main.GetComponent<CameraShakeZoom>() : null;
+        if (camZoom != null) camZoom.EndBattleAmbient();
+
+        // UI: dim gelir  "Wave Completed!" (WaveUIAnimator içinde)  paneller içeri
         var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
         if (ui != null) ui.PlayEndWave();
 
@@ -106,6 +120,7 @@ public class GameManager : MonoBehaviour
             EndWave();
     }
 
+    // CoinPickup çaðýracak
     public RectTransform GetMoneyIconRect() => moneyIconRect;
     public Canvas GetMainCanvas() => mainCanvas;
     public float GetCoinWaitTime() => coinWaitBeforeMove;
