@@ -135,7 +135,7 @@ MonoBehaviour:
   enemy: {fileID: 0}
   bullet: {fileID: 8986109281751372665, guid: ee68058d0e3b9bc43be19ba44b4e2e41, type: 3}
   type: 2
-  shootingPower: 15
+  shootingPower: 5
   coolDown: 4
   canShoot: 0
   launchPoint: {fileID: 7740635949424233450}

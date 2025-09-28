@@ -12,8 +12,7 @@ GameObject:
   - component: {fileID: 8188174501328409157}
   - component: {fileID: 3313340185803734806}
   - component: {fileID: 3408811807259652732}
-  - component: {fileID: 1595727185418345291}
-  - component: {fileID: -2261590850380526897}
+  - component: {fileID: 32575501599536069}
   m_Layer: 0
   m_Name: Famichiki
   m_TagString: Untagged
@@ -128,8 +127,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &1595727185418345291
-BoxCollider2D:
+--- !u!58 &32575501599536069
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -161,27 +160,5 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5, y: 1.5}
-  m_EdgeRadius: 0
---- !u!114 &-2261590850380526897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8986109281751372665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2255fb06c24530047a66dc2c53f53d36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Radius: 1

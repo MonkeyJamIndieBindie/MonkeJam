@@ -119,8 +119,8 @@ public class Shooting : MonoBehaviour
     IEnumerator ChrisShoot()
     {
         canShoot = false;
+        FindClosestEnemy();
         launchPoint.rotation = Quaternion.Euler(0,0,Random.Range(20, 71));
-        DrawTrejectory();
         lineRender.enabled = true;
         yield return new WaitForSeconds(coolDown / 3 * 2);
         GameObject famichicki = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
