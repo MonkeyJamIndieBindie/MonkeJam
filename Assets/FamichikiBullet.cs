@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class FamichikiBullet : MonoBehaviour
 {
@@ -7,7 +8,32 @@ public class FamichikiBullet : MonoBehaviour
     bool canGetBig = true;
 
     [Header("Impact VFX")]
-    [SerializeField] ParticleSystem impactVfxPrefab;  //  buraya prefab'ýný sürükle
+    [SerializeField] ParticleSystem impactVfxPrefab;  // buraya prefab'ýný sürükle
+
+    [Header("Cartoon Flight")]
+    [SerializeField] float spinSpeedDegPerSec = 720f;     // sürekli spin
+    [SerializeField] Vector3 wobblePunch = new Vector3(0.15f, -0.15f, 0f);
+    [SerializeField] float wobbleTime = 0.22f;
+
+    Tween spinT;
+    Tween wobbleT;
+
+    public void StartCartoonFlight()
+    {
+        // Sürekli spin (speed-based)
+        spinT?.Kill();
+        spinT = transform
+            .DORotate(new Vector3(0f, 0f, 360f), spinSpeedDegPerSec, RotateMode.FastBeyond360)
+            .SetEase(Ease.Linear)
+            .SetSpeedBased(true)
+            .SetLoops(-1, LoopType.Incremental);
+
+        // Hafif squash-stretch wobble (loop)
+        wobbleT?.Kill();
+        wobbleT = transform
+            .DOPunchScale(wobblePunch, wobbleTime, 8, 0.9f)
+            .SetLoops(-1, LoopType.Yoyo);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -32,6 +58,10 @@ public class FamichikiBullet : MonoBehaviour
     {
         canGetBig = false;
 
+        // Tweenleri kapat
+        spinT?.Kill();
+        wobbleT?.Kill();
+
         var rb = GetComponent<Rigidbody2D>();
         if (rb)
         {
@@ -47,7 +77,7 @@ public class FamichikiBullet : MonoBehaviour
         var sr = GetComponent<SpriteRenderer>();
         if (sr) sr.enabled = false;
 
-        // >>> ÇARPTIÐI NOKTADA VFX’i çalýþtýr
+        // Çarpma noktasýnda VFX
         PlayImpactVfx(transform.position);
 
         yield return new WaitForSeconds(0.5f);
@@ -58,13 +88,17 @@ public class FamichikiBullet : MonoBehaviour
     {
         if (impactVfxPrefab == null) return;
 
-        // Instantiate + Play
         var ps = Instantiate(impactVfxPrefab, pos, Quaternion.identity);
         ps.Play();
 
-        // Kendi kendini temizlemesi için yok et
         var main = ps.main;
         float life = main.duration + main.startLifetime.constantMax;
         Destroy(ps.gameObject, life + 0.1f);
+    }
+
+    void OnDestroy()
+    {
+        spinT?.Kill();
+        wobbleT?.Kill();
     }
 }

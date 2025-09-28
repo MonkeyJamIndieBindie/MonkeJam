@@ -23,13 +23,20 @@ public class WaveUIAnimator : MonoBehaviour
     [Header("Dim & Title")]
     [SerializeField] CanvasGroup dimBg;            // Tam ekran siyah Image üstünde CanvasGroup
     [SerializeField] float dimTargetAlpha = 0.45f; // Kararma miktarý
+
     [SerializeField] TextMeshProUGUI titleText;    // Wave Completed!
     [SerializeField] string title = "Wave Completed!";
     [SerializeField] float titleFade = 0.35f;      // Baþlýk görünme/kaybolma
-    [SerializeField] float titleShowDuration = 2f; // 2 sn görünsün
+    [SerializeField] float titleShowDuration = 2f; // Görünür kalma süresi
+
+    [Header("Title FX")]
+    [SerializeField] float titleScaleShown = 1.18f;     // gösterimde ölçek
+    [SerializeField] Vector2 titleDrift = new Vector2(28f, 14f); // çapraz drift (px)
+    [SerializeField] Ease titleDriftEase = Ease.InOutSine;
 
     Sequence seq;
     Vector2[] origPos;
+    Vector2 titleOrigPos;
 
     void Awake()
     {
@@ -38,18 +45,25 @@ public class WaveUIAnimator : MonoBehaviour
             if (panels[i].rect) origPos[i] = panels[i].rect.anchoredPosition;
 
         if (dimBg) dimBg.alpha = 0f;
+
         if (titleText)
         {
             titleText.text = title;
             titleText.alpha = 0f;
             titleText.rectTransform.localScale = Vector3.one;
+            titleOrigPos = titleText.rectTransform.anchoredPosition;
         }
     }
 
     void OnDisable()
     {
         seq?.Kill();
-        if (titleText) titleText.alpha = 0f;
+        if (titleText)
+        {
+            titleText.alpha = 0f;
+            titleText.rectTransform.localScale = Vector3.one;
+            titleText.rectTransform.anchoredPosition = titleOrigPos;
+        }
         // panelleri orijinale döndür
         for (int i = 0; i < panels.Length; i++)
             if (panels[i].rect) panels[i].rect.anchoredPosition = origPos[i];
@@ -105,7 +119,6 @@ public class WaveUIAnimator : MonoBehaviour
     public void PlayStartWave()
     {
         seq?.Kill();
-
         seq = DOTween.Sequence();
 
         // Paneller dýþarý
@@ -122,32 +135,55 @@ public class WaveUIAnimator : MonoBehaviour
         if (dimBg) seq.Join(dimBg.DOFade(0f, 0.2f));
 
         // Baþlýk görünmesin
-        if (titleText) titleText.DOFade(0f, 0.1f);
+        if (titleText)
+        {
+            titleText.DOKill();
+            titleText.alpha = 0f;
+            titleText.rectTransform.localScale = Vector3.one;
+            titleText.rectTransform.anchoredPosition = titleOrigPos;
+        }
     }
 
     // ------------------------------------------------------------
-    // Dizi 3: END WAVE (dim + baþlýk 2 sn + paneller içeri)
+    // Dizi 3: END WAVE (dim + baþlýk tam opak + drift + paneller içeri)
     // ------------------------------------------------------------
     public void PlayEndWave()
     {
         seq?.Kill();
         PlacePanelsOffscreen();
+        MusicManager.Instance.PlayStateMusic(GameState.Market);
 
         seq = DOTween.Sequence();
-        MusicManager.Instance.PlayStateMusic(GameState.Market);
+
         // Dim yavaþça gelsin
         if (dimBg) seq.Join(dimBg.DOFade(dimTargetAlpha, inDuration));
 
-        // Baþlýk akýþý: fade-in -> bekle -> fade-out (dim kalýr)
+        // Baþlýk akýþý: tam opak, büyük ve hafif çapraz drift
         if (titleText)
         {
-            titleText.alpha = 0f;
-            titleText.rectTransform.localScale = Vector3.one * 0.9f;
+            var tRect = titleText.rectTransform;
+            titleText.DOKill();
 
-            seq.Append(titleText.DOFade(1f, titleFade));
-            seq.Join(titleText.rectTransform.DOScale(1f, titleFade).SetEase(Ease.OutBack));
-            seq.AppendInterval(Mathf.Max(0f, titleShowDuration));
+            // baþlangýç
+            titleText.alpha = 0f;
+            tRect.localScale = Vector3.one * (titleScaleShown * 0.9f);
+            tRect.anchoredPosition = titleOrigPos;
+
+            // Fade-in  tam opaklýða, scale  titleScaleShown
+            seq.Append(titleText.DOFade(1f, titleFade)); // FULL opacity
+            seq.Join(tRect.DOScale(titleScaleShown, titleFade).SetEase(Ease.OutBack));
+
+            // Gösterim süresince hafif çapraz drift
+            seq.Join(tRect.DOAnchorPos(titleOrigPos + titleDrift, Mathf.Max(0.01f, titleShowDuration))
+                           .SetEase(titleDriftEase));
+
+            // Gösterim sonrasý: fade-out + yerini sýfýrla
             seq.Append(titleText.DOFade(0f, titleFade * 0.8f));
+            seq.Join(tRect.DOScale(1f, titleFade * 0.8f).SetEase(Ease.InSine));
+            seq.AppendCallback(() =>
+            {
+                tRect.anchoredPosition = titleOrigPos;
+            });
         }
 
         // Paneller içeri

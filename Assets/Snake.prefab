@@ -128,6 +128,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitDammage: 0.5
   poisonDammage: 0.125
+  poisonTicks: 6
+  tickInterval: 0.12
+  groundAoeRadius: 2.4
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 8
+  poisonAreaPrefab: {fileID: 408130787318559526, guid: d5850d382deac9a4188b49b4a99e95bc, type: 3}
 --- !u!61 &8999100550765905682
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class EnemyWalk : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class EnemyWalk : MonoBehaviour
     public bool hit;
 
     Animator anim;
+    Rigidbody2D rb;
 
     public EnemyType enemyType;
 
@@ -17,6 +19,12 @@ public class EnemyWalk : MonoBehaviour
     [SerializeField] float dammage;
 
     GameManager manager;
+
+    [Header("Roll FX")]
+    [SerializeField] float rollSpinSpeed = 720f;      // derece/sn
+    [SerializeField] float rollAccelTime = 1.2f;      // hýzlanma süresi
+    [SerializeField] float rollImpactForce = 8f;      // çarpýnca geri fýrlatma kuvveti
+    [SerializeField] Vector2 rollImpactRandom = new Vector2(2f, 3.5f); // X/Y rastgele aralýk
 
     public enum EnemyType
     {
@@ -31,28 +39,46 @@ public class EnemyWalk : MonoBehaviour
         connor = GameObject.FindGameObjectWithTag("Kale").transform;
         anim = GetComponent<Animator>();
         manager = GameObject.FindObjectOfType<GameManager>();
+        rb = GetComponent<Rigidbody2D>();
+
         dammage *= manager.levelHardnes[manager.levelCount].y;
+
+        if (enemyType == EnemyType.Roll)
+        {
+            // Baþlangýçta dönme animasyonu
+            transform.DORotate(new Vector3(0, 0, -360f), 0.5f, RotateMode.LocalAxisAdd)
+                     .SetEase(Ease.Linear).SetLoops(-1, LoopType.Restart);
+            // Yavaþça hýzlan
+            DOTween.To(() => enemySpeed, x => enemySpeed = x, enemySpeed * 1.8f, rollAccelTime)
+                   .SetEase(Ease.OutQuad);
+        }
     }
 
     private void Update()
     {
-        if(enemyType == EnemyType.Roll)
+        if (enemyType == EnemyType.Roll)
         {
-             transform.position = Vector2.MoveTowards(transform.position, new Vector2(connor.position.x, transform.position.y), enemySpeed * Time.deltaTime);
+            // Sadece X ekseninde kuleye doðru yaklaþsýn
+            transform.position = Vector2.MoveTowards(
+                transform.position,
+                new Vector2(connor.position.x, transform.position.y),
+                enemySpeed * Time.deltaTime
+            );
         }
-        else if(enemyType == EnemyType.Far)
+        else if (enemyType == EnemyType.Far)
         {
             if (Vector2.Distance(connor.position, transform.position) > 5f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(connor.position.x, transform.position.y), enemySpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y),
+                    new Vector2(connor.position.x, transform.position.y),
+                    enemySpeed * Time.deltaTime);
                 anim.SetBool("Walk", true);
             }
             else
             {
-                transform.position = this.transform.position;
-                if(canHit == true)
+                if (canHit)
                 {
-                    //uzakçý attack
+                    // uzakçý attack
                 }
             }
         }
@@ -60,13 +86,14 @@ public class EnemyWalk : MonoBehaviour
         {
             if (Vector2.Distance(connor.position, transform.position) > 1.2f)
             {
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(connor.position.x, transform.position.y), enemySpeed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position,
+                    new Vector2(connor.position.x, transform.position.y),
+                    enemySpeed * Time.deltaTime);
                 anim.SetBool("Walk", true);
             }
             else
             {
-                transform.position = this.transform.position;
-                if (canHit == true)
+                if (canHit)
                 {
                     if (enemyType == EnemyType.Slow) StartCoroutine(HammerAttack());
                     if (enemyType == EnemyType.Fast) StartCoroutine(SwordAttack());
@@ -74,7 +101,8 @@ public class EnemyWalk : MonoBehaviour
                 anim.SetBool("Walk", false);
             }
         }
-        if (hit == true)
+
+        if (hit)
         {
             StartCoroutine(GetFaster());
         }
@@ -82,18 +110,33 @@ public class EnemyWalk : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Kale"))
+        if (enemyType == EnemyType.Roll && collision.gameObject.CompareTag("Kale"))
         {
-            if(enemyType == EnemyType.Roll)
+            HurtTower();
+            manager.enemyKilledInWave++;
+            manager.CheckEndWave();
+
+            // Çarpýnca dönmeyi durdur
+            transform.DOKill();
+
+            // Cartoon fýrlama (mevcut kodun kalsýn)
+            if (rb)
             {
-                HurtTower();
-                manager.enemyKilledInWave++;
-                manager.CheckEndWave();
-                Destroy(gameObject);
+                rb.isKinematic = false;
+                rb.velocity = Vector2.zero;
+                Vector2 dir = new Vector2(Random.Range(-rollImpactRandom.x, rollImpactRandom.x),
+                                          Random.Range(1f, rollImpactRandom.y)).normalized;
+                rb.AddForce(dir * rollImpactForce, ForceMode2D.Impulse);
+                rb.AddTorque(Random.Range(-300f, 300f));
             }
+
+            // >>> COIN DÖKME SÝNYALÝ (wave'i burada SAYDIÐIN için false ver)
+            var eh = GetComponent<EnemyHealth>();
+            if (eh != null) eh.ForceKillAndLoot(countWaveKill: false);
+
+            // Destroy(gameObject);  // <<< BUNU ARTIK SÝyok etmeyi EnemyHealth yapýyor
         }
     }
-
 
     void HurtTower()
     {
@@ -117,6 +160,7 @@ public class EnemyWalk : MonoBehaviour
         yield return new WaitForSeconds(coolDown);
         canHit = true;
     }
+
     IEnumerator SwordAttack()
     {
         canHit = false;

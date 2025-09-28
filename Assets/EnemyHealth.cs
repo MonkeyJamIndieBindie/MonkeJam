@@ -10,23 +10,26 @@ public class EnemyHealth : MonoBehaviour
 
     GameManager gameManager;
     Animator anim;
-    int enemyLoot; // bu düþmandan kaç para çýkacak (toplam)
+    int enemyLoot;          // bu düþmandan kaç para çýkacak (toplam)
+    bool isDying;           // çift tetiklemeyi önle
 
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
         anim = GetComponent<Animator>();
-        enemyLoot = Random.Range(1, 6); // ister Inspector’a da alabilirsin
+        enemyLoot = Random.Range(1, 6); // istersen Inspector’a al
         health *= gameManager.levelHardnes[gameManager.levelCount].x;
     }
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        var fami = c.GetComponent<FamichikiBullet>();
-        if (fami) { StartCoroutine(GetHurt(fami.hitDammage)); return; }
+        if (isDying) return;
+
+        var fami  = c.GetComponent<FamichikiBullet>();
+        if (fami)  { StartCoroutine(GetHurt(fami.hitDammage)); return; }
 
         var banana = c.GetComponent<Banana>();
-        if (banana) { StartCoroutine(GetHurt(banana.hitDammage)); return; }
+        if (banana){ StartCoroutine(GetHurt(banana.hitDammage)); return; }
 
         var heart = c.GetComponent<HeartBullet>();
         if (heart) { StartCoroutine(GetHurt(heart.hitDammage)); return; }
@@ -37,11 +40,27 @@ public class EnemyHealth : MonoBehaviour
 
     void CheckHealth()
     {
-        if (health > 0) return;
-        StartCoroutine(DieAndSpawnCoins());
+        if (health > 0f) return;
+        // Normal ölüm: hem coin dök hem dalgayý say
+        ForceKillAndLoot(countWaveKill: true);
     }
 
-    IEnumerator DieAndSpawnCoins()
+    /// <summary>
+    /// Dýþarýdan (ör. EnemyWalk.Roll çarpýþmasý) çaðýr:
+    /// countWaveKill=true  dalgayý burada sayar.
+    /// countWaveKill=false  dalgayý dýþarýda sayýyorsun (EnemyWalk’ta) ve burada SAYMA.
+    /// </summary>
+    public void ForceKillAndLoot(bool countWaveKill)
+    {
+        if (isDying) return;
+        isDying = true;
+        StartCoroutine(DieAndSpawnCoins(countWaveKill));
+    }
+
+    // Eski imzayla uyum istersen:
+    IEnumerator DieAndSpawnCoins() => DieAndSpawnCoins(true);
+
+    IEnumerator DieAndSpawnCoins(bool countWaveKill)
     {
         // Ýsteðe baðlý ölüm animasyonu
         // if (anim) anim.SetTrigger("Die");
@@ -69,9 +88,12 @@ public class EnemyHealth : MonoBehaviour
             }
         }
 
-        // Dalgayý say ama parayý burada EKLEME; coin’ler UI’ya ulaþýnca eklenecek
-        gameManager.enemyKilledInWave++;
-        gameManager.CheckEndWave();
+        // Dalgayý burada say (isteðe baðlý)
+        if (countWaveKill)
+        {
+            gameManager.enemyKilledInWave++;
+            gameManager.CheckEndWave();
+        }
 
         Destroy(gameObject);
         yield return null;
@@ -79,6 +101,8 @@ public class EnemyHealth : MonoBehaviour
 
     IEnumerator GetHurt(float dmg)
     {
+        if (isDying) yield break;
+
         health -= dmg;
         CheckHealth();
         if (anim)

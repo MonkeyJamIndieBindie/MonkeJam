@@ -186,11 +186,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d36e2d302965ac345bdc653d81b8fa63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 3
+  enemySpeed: 7
   hit: 0
   enemyType: 2
   coolDown: 0
   dammage: 1
+  rollSpinSpeed: 720
+  rollAccelTime: 1.2
+  rollImpactForce: 8
+  rollImpactRandom: {x: 2, y: 3.5}
 --- !u!114 &3289636876387739548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fe1630543131e141818ff0e15240eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
+  health: 10
   coinWorldPrefab: {fileID: 4570634144650546936, guid: 9c110a928729f5e41a2254adaa7497fd, type: 3}
   minCoins: 2
   maxCoins: 4
