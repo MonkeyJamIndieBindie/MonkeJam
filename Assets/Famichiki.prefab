@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDammage: 0.5
+  impactVfxPrefab: {fileID: 5230250641662075678, guid: 031f07eae622d3a4db8a81019fc404fe, type: 3}
 --- !u!50 &3408811807259652732
 Rigidbody2D:
   serializedVersion: 4
