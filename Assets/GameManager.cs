@@ -27,12 +27,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] float coinWaitBeforeMove = 1f;
     [SerializeField] float coinMoveDuration = 0.6f;
 
+    [Header("Money FX")]
+    [SerializeField] MoneyUIFX moneyUIFx; // Inspector'dan ver veya Start'ta bul
+
     void Start()
     {
+        if (moneyUIFx == null)
+        {
+            moneyUIFx = GetComponentInChildren<MoneyUIFX>(true);
+        }
+
         UpdateMoney();
         UpdateHeath();
 
-        // Ýlk giriþ: Dim yavaþça gelir, baþlýk yok, paneller sýrayla içeri
         var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
         if (ui != null) ui.PlayIntro();
     }
@@ -47,6 +54,18 @@ public class GameManager : MonoBehaviour
         moneyText.text = money.ToString("0");
     }
 
+    // >>> YENÝ: Para artýþý için tek giriþ kapýsý
+    public void OnMoneyGained(float amount)
+    {
+        money += amount;
+        UpdateMoney();
+
+        if (moneyUIFx != null)
+        {
+            moneyUIFx.PlayGain(amount);
+        }
+    }
+
     public void StartTheWave()
     {
         for (int i = 0; i < buddyShooting.Count; i++)
@@ -59,7 +78,6 @@ public class GameManager : MonoBehaviour
         enemySpawner.madeEnemy = 0;
         enemyKilledInWave = 0;
 
-        // Paneller dýþarý, dim hýzlýca kapanýr (obje aktif kalýr)
         var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
         if (ui != null) ui.PlayStartWave();
 
@@ -75,7 +93,6 @@ public class GameManager : MonoBehaviour
 
         enemySpawner.makeEnemy = false;
 
-        // Dim yavaþça gel
         var ui = closeBetween != null ? closeBetween.GetComponent<WaveUIAnimator>() : null;
         if (ui != null) ui.PlayEndWave();
 
@@ -89,7 +106,6 @@ public class GameManager : MonoBehaviour
             EndWave();
     }
 
-    // CoinPickup çaðýracak
     public RectTransform GetMoneyIconRect() => moneyIconRect;
     public Canvas GetMainCanvas() => mainCanvas;
     public float GetCoinWaitTime() => coinWaitBeforeMove;

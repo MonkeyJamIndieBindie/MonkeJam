@@ -417,6 +417,7 @@ GameObject:
   - component: {fileID: 188892836}
   - component: {fileID: 188892838}
   - component: {fileID: 188892837}
+  - component: {fileID: 188892839}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -440,8 +441,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -816, y: 423}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -883, y: 420}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &188892837
 MonoBehaviour:
@@ -481,6 +482,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188892835}
   m_CullTransparentMesh: 1
+--- !u!114 &188892839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188892835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1879c6890d84074eb7c872277798e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCanvas: {fileID: 4929383403058449549}
+  moneyIconRect: {fileID: 188892836}
+  popScale: 1.12
+  popDuration: 0.12
+  textOffset: {x: 30, y: 10}
+  textRise: 60
+  textDuration: 0.6
+  textFontSize: 28
+  textColor: {r: 1, g: 0.95, b: 0.3, a: 1}
 --- !u!1 &208206845
 GameObject:
   m_ObjectHideFlags: 0
@@ -9073,8 +9095,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -654, y: 423.1}
-  m_SizeDelta: {x: 470.9, y: 124.8}
+  m_AnchoredPosition: {x: -826.5401, y: 419.16785}
+  m_SizeDelta: {x: 194.4725, y: 152.9023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2034108992
 MonoBehaviour:
@@ -9638,6 +9660,10 @@ PrefabInstance:
       propertyPath: moneyText
       value: 
       objectReference: {fileID: 3069829633807935649}
+    - target: {fileID: 1785072633982431790, guid: 3df7880e505082b45b7a7d4971ff9988, type: 3}
+      propertyPath: moneyUIFx
+      value: 
+      objectReference: {fileID: 188892839}
     - target: {fileID: 1785072633982431790, guid: 3df7880e505082b45b7a7d4971ff9988, type: 3}
       propertyPath: mainCanvas
       value: 
@@ -10340,7 +10366,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Money
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d6464b39aa8f364caaed55001395898, type: 2}
   m_sharedMaterial: {fileID: 4177732642717145524, guid: 1d6464b39aa8f364caaed55001395898, type: 2}
@@ -10367,8 +10393,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 56.2
+  m_fontSizeBase: 56.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10403,7 +10429,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -137.02243, w: -119.05231}
+  m_margin: {x: 0, y: 0, z: -12.391907, w: -119.05231}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10543,8 +10569,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 311, y: -115}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 297.96973, y: -153.3518}
+  m_SizeDelta: {x: 294.3, y: 116.7036}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3925789217698293904
 MonoBehaviour:
