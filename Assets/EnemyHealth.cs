@@ -38,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
         if (snake) { StartCoroutine(GetPoisoned(snake.hitDammage, snake.poisonDammage)); return; }
     }
 
-    void CheckHealth()
+    public void CheckHealth()
     {
         if (health > 0f) return;
         // Normal ölüm: hem coin dök hem dalgayý say

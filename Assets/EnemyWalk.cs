@@ -113,13 +113,12 @@ public class EnemyWalk : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (enemyType == EnemyType.Roll && collision.gameObject.CompareTag("Kale"))
         {
             HurtTower();
-            manager.enemyKilledInWave++;
-            manager.CheckEndWave();
+
 
             // Çarpýnca dönmeyi durdur
             transform.DOKill();
@@ -140,6 +139,10 @@ public class EnemyWalk : MonoBehaviour
             if (eh != null) eh.ForceKillAndLoot(countWaveKill: false);
 
             GetComponent<EnemyHealth>().health -= 1;
+            GetComponent<EnemyHealth>().CheckHealth();
+
+            manager.enemyKilledInWave++;
+            manager.CheckEndWave();
         }
     }
 
