@@ -107,6 +107,14 @@ MonoBehaviour:
   canShoot: 0
   launchPoint: {fileID: 0}
   lineRender: {fileID: 0}
+  shooterRoot: {fileID: 0}
+  preSquashScaleX: 1.12
+  preSquashScaleY: 0.86
+  preBackOffset: 0.18
+  preTime: 0.12
+  recoilPunchRot: 7
+  recoilPunchPos: 0.12
+  recoilTime: 0.14
 --- !u!95 &2181145800494246112
 Animator:
   serializedVersion: 5
@@ -152,9 +160,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1607987367558300296}
   - component: {fileID: 8938096666293889280}
+  - component: {fileID: 8055394605798469350}
   m_Layer: 0
   m_Name: ConnorKale
-  m_TagString: Untagged
+  m_TagString: Kale
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -227,3 +236,48 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &8055394605798469350
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366628292086792631}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.3333333, y: 3.3333333}
+    newSize: {x: 5, y: 5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.3333333, y: 3.3333333}
+  m_EdgeRadius: 0

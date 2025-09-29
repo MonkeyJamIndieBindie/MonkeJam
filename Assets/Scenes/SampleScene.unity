@@ -501,6 +501,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cca347980e347a43ba74c9768516539, type: 3}
+--- !u!1 &864556149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7366628292086792631, guid: 8cca347980e347a43ba74c9768516539, type: 3}
+  m_PrefabInstance: {fileID: 864556148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &931651489 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3069829635331029412, guid: 6e7f88506891da74fb97c1683dfc4d10, type: 3}
@@ -550,63 +555,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &2575198342108977353
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2804843566908547753, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_Name
-      value: KaleBoundry
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -14.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5543543687723549720, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4ac75823277bb0e4ba489cf3b0e138be, type: 3}
 --- !u!1001 &4082876440742579510
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -885,6 +833,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1331224786}
     - target: {fileID: 1785072633982431790, guid: 3df7880e505082b45b7a7d4971ff9988, type: 3}
+      propertyPath: kaleForEnemy
+      value: 
+      objectReference: {fileID: 864556149}
+    - target: {fileID: 1785072633982431790, guid: 3df7880e505082b45b7a7d4971ff9988, type: 3}
       propertyPath: levelHardnes.Array.size
       value: 10
       objectReference: {fileID: 0}
@@ -1152,6 +1104,14 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 611875003}
+    - target: {fileID: 4067056088249778049, guid: 00e5c28cca5c12041b0a8446e05f500f, type: 3}
+      propertyPath: enemy.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4067056088249778049, guid: 00e5c28cca5c12041b0a8446e05f500f, type: 3}
+      propertyPath: enemy.Array.data[0]
+      value: 
+      objectReference: {fileID: 7785607276490788890, guid: 8ee83b3ec8308e747a0efc14a8685757, type: 3}
     - target: {fileID: 5232479641398453991, guid: 00e5c28cca5c12041b0a8446e05f500f, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
@@ -1174,4 +1134,3 @@ SceneRoots:
   - {fileID: 5569958845864116770}
   - {fileID: 864556148}
   - {fileID: 6278278498506633103}
-  - {fileID: 2575198342108977353}

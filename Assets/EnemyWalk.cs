@@ -17,6 +17,14 @@ public class EnemyWalk : MonoBehaviour
     bool canHit = true;
     public float coolDown;
     [SerializeField] float dammage;
+    [SerializeField] float shootingPower;
+    [SerializeField] Transform launchPoint;
+    [SerializeField] GameObject bone;
+
+    [Header("Trajectory Display")]
+    public LineRenderer lineRender;
+    int linePoints = 175;
+    float timeItervalPoints = .01f;
 
     GameManager manager;
 
@@ -40,6 +48,7 @@ public class EnemyWalk : MonoBehaviour
         anim = GetComponent<Animator>();
         manager = GameObject.FindObjectOfType<GameManager>();
         rb = GetComponent<Rigidbody2D>();
+        lineRender = GetComponent<LineRenderer>();
 
         dammage *= manager.levelHardnes[manager.levelCount].y;
 
@@ -78,7 +87,7 @@ public class EnemyWalk : MonoBehaviour
             {
                 if (canHit)
                 {
-                    // uzakçý attack
+                    StartCoroutine(LongHit());
                 }
             }
         }
@@ -171,10 +180,46 @@ public class EnemyWalk : MonoBehaviour
         canHit = true;
     }
 
+    void DrawTrejectory()
+    {
+        Vector3 origin = launchPoint.position;
+        Vector3 strartVelocity = shootingPower * (launchPoint.right * -1);
+        lineRender.positionCount = linePoints;
+        float time = 0;
+        for (int i = 0; i < linePoints; i++)
+        {
+            var x = (strartVelocity.x * time) + (Physics.gravity.x / 2 * time * time);
+            var y = (strartVelocity.y * time) + (Physics.gravity.y / 2 * time * time);
+            Vector3 point = new Vector3(x, y, 0);
+            lineRender.SetPosition(i, origin + point);
+            time += timeItervalPoints;
+        }
+    }
+    IEnumerator LongHit()
+    {
+        canHit = false;
+
+        launchPoint.rotation = Quaternion.Euler(0, 0, Random.Range(20, 61));
+        lineRender.enabled = true;
+        DrawTrejectory();
+
+        GameObject boneBullet = Instantiate(bone, transform.position, Quaternion.identity);
+        var rb = boneBullet.GetComponent<Rigidbody2D>();
+        boneBullet.GetComponent<BoneBullet>().dammage = dammage;
+        if (rb != null) rb.velocity = shootingPower * (launchPoint.right * -1);
+
+        lineRender.enabled = false;
+
+        yield return new WaitForSeconds(coolDown);
+
+        canHit = true;
+    }
+
     IEnumerator GetHurt()
     {
         anim.SetBool("Hurt", true);
         yield return new WaitForSeconds(.5f);
         anim.SetBool("Hurt", false);
     }
+
 }

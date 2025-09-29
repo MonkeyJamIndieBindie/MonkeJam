@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] EnemySpawner enemySpawner;
     [SerializeField] GameObject closeBetween;          // WaveUIAnimator bu objede
     [SerializeField] TextMeshProUGUI heathText;
+    public GameObject kaleForEnemy;
 
     public int maxEnemyForWave;
     public int enemyKilledInWave;
