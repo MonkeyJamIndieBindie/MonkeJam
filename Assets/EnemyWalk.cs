@@ -52,6 +52,8 @@ public class EnemyWalk : MonoBehaviour
 
         dammage *= manager.levelHardnes[manager.levelCount].y;
 
+        transform.localScale = new Vector3(transform.localScale.x * manager.levelHardnes[manager.levelCount].x, transform.localScale.y * manager.levelHardnes[manager.levelCount].x, 0);
+
         if (enemyType == EnemyType.Roll)
         {
             // Baþlangýçta dönme animasyonu
