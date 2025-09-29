@@ -13,6 +13,9 @@ public class EnemyHealth : MonoBehaviour
     int enemyLoot;          // bu düþmandan kaç para çýkacak (toplam)
     bool isDying;           // çift tetiklemeyi önle
 
+    //düþman Puan
+    public int enemyPoint;
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -94,6 +97,8 @@ public class EnemyHealth : MonoBehaviour
             gameManager.enemyKilledInWave++;
             gameManager.CheckEndWave();
         }
+
+        gameManager.toalGoblinPoint += enemyPoint;
 
         Destroy(gameObject);
         yield return null;

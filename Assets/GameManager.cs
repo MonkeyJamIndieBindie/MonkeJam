@@ -30,6 +30,14 @@ public class GameManager : MonoBehaviour
     [Header("Money FX")]
     [SerializeField] MoneyUIFX moneyUIFx; // Inspector'dan ver veya Start'ta bul
 
+    //Paun
+    [SerializeField] TextMeshProUGUI pointText;
+    float coinPoint;
+    float towerHealthPoint;
+    int totalPoint;
+    [SerializeField] float[] pointMult;
+    public float toalGoblinPoint;
+
     void Start()
     {
         if (moneyUIFx == null)
@@ -96,6 +104,8 @@ public class GameManager : MonoBehaviour
     {
 
         StopAllCoroutines();
+        PuanlarýTopla();
+        toalGoblinPoint = 0;
         MusicManager.Instance?.PlayStateMusic(GameState.EndWave, instantIn: true);
         for (int i = 0; i < buddyShooting.Count; i++)
             if (buddyShooting[i] != null) buddyShooting[i].canShoot = false;
@@ -125,4 +135,13 @@ public class GameManager : MonoBehaviour
     public Canvas GetMainCanvas() => mainCanvas;
     public float GetCoinWaitTime() => coinWaitBeforeMove;
     public float GetCoinMoveDuration() => coinMoveDuration;
+
+
+    public void PuanlarýTopla()
+    {
+        coinPoint = money;
+        towerHealthPoint = towerHealth;
+        totalPoint = (int)((coinPoint + towerHealthPoint + toalGoblinPoint) * pointMult[levelCount]);
+        pointText.text = totalPoint.ToString();
+    }
 }

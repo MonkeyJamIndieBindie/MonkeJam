@@ -215,6 +215,7 @@ MonoBehaviour:
   coinWorldPrefab: {fileID: 4570634144650546936, guid: 9c110a928729f5e41a2254adaa7497fd, type: 3}
   minCoins: 2
   maxCoins: 4
+  enemyPoint: 5
 --- !u!95 &4281701214174661488
 Animator:
   serializedVersion: 5
