@@ -93,7 +93,7 @@ public class EnemyWalk : MonoBehaviour
         }
         else
         {
-            if (Vector2.Distance(connor.position, transform.position) > 1.2f)
+            if (Vector2.Distance(connor.position, transform.position) > 1.5f)
             {
                 transform.position = Vector2.MoveTowards(transform.position,
                     new Vector2(connor.position.x, transform.position.y),

@@ -1,5 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
+using System.Collections;
 
 public class Banana : MonoBehaviour
 {
@@ -17,6 +19,13 @@ public class Banana : MonoBehaviour
 
     Tween spinT, wobbleT;
 
+
+    private IEnumerator Start()
+    {
+        GetComponent<CircleCollider2D>().radius = .3f;
+        yield return new WaitForSeconds(.5f);
+        GetComponent<CircleCollider2D>().radius = 1;
+    }
     void OnEnable()
     {
         spinT = transform
@@ -27,6 +36,8 @@ public class Banana : MonoBehaviour
             .DOPunchScale(wobblePunch, wobbleTime, 8, 0.9f)
             .SetLoops(-1, LoopType.Yoyo);
     }
+
+    
 
     void Update()
     {
@@ -57,4 +68,6 @@ public class Banana : MonoBehaviour
         spinT?.Kill();
         wobbleT?.Kill();
     }
+
+    
 }

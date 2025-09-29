@@ -152,7 +152,7 @@ public class Shooting : MonoBehaviour
 
         yield return DoPrefireAnticipation();
 
-        GameObject banana = Instantiate(bullet, transform.position, Quaternion.identity);
+        GameObject banana = Instantiate(bullet, transform.position - new Vector3(1, 0, 0), Quaternion.identity);
         var b = banana.GetComponent<Banana>();
         if (b != null)
         {

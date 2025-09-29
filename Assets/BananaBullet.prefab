@@ -103,6 +103,11 @@ MonoBehaviour:
   enemy: {fileID: 0}
   connor: {fileID: 0}
   hitDammage: 0.5
+  outwardSpeed: 5
+  returnSpeed: 5
+  spinSpeedDegPerSec: 720
+  wobblePunch: {x: 0.15, y: -0.15, z: 0}
+  wobbleTime: 0.22
 --- !u!50 &5147712732745889162
 Rigidbody2D:
   serializedVersion: 4
@@ -164,7 +169,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 1
 --- !u!95 &4082463940800379192
 Animator:
   serializedVersion: 5
