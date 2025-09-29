@@ -47,6 +47,7 @@ public class MainMenuUI : MonoBehaviour
 
     void OnEnable()
     {
+        MusicManager.Instance?.PlayMainMenuMusic(/* instantIn: */ false);
         PlayIntro();
     }
 

@@ -14,8 +14,11 @@ public class MusicManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] AudioSource marketMusic;
     [SerializeField] AudioSource startWaveMusic;
-    [SerializeField] AudioSource waveMusic;
+    [SerializeField] AudioSource GameOverMusic;
     [SerializeField] AudioSource endWaveMusic;
+
+    // >>> YENÝ: Ana menü müziði
+    [SerializeField] AudioSource mainMenuMusic;
 
     [Header("Defaults")]
     [SerializeField] float fadeDuration = 1.0f;     // genel crossfade süresi
@@ -41,43 +44,43 @@ public class MusicManager : MonoBehaviour
         {
             case GameState.Market: target = marketMusic; break;
             case GameState.StartWave: target = startWaveMusic; break;
-            case GameState.Wave: target = waveMusic; break;
+            case GameState.Wave: target = GameOverMusic; break; // GameOver müziði
             case GameState.EndWave: target = endWaveMusic; break;
         }
 
-        if (target == null || target == currentSource) return;
-
+        if (target == null) return;
         StopAllCoroutines();
         StartCoroutine(CrossfadeTo(target, instantIn, customFade.HasValue ? customFade.Value : fadeDuration));
     }
 
+    // >>> YENÝ: Ana menü müziðini çal (diðerlerini kes)
+    public void PlayMainMenuMusic(bool instantIn = false, float? customFade = null)
+    {
+        if (mainMenuMusic == null) return;
+        StopAllCoroutines();
+        StartCoroutine(CrossfadeTo(mainMenuMusic, instantIn, customFade.HasValue ? customFade.Value : fadeDuration));
+    }
+
     IEnumerator CrossfadeTo(AudioSource target, bool instantIn, float fadeTime)
     {
-        // Eski kaynak
-        AudioSource old = currentSource;
+        // tüm kaynaklar (>>> YENÝ: mainMenuMusic dahil)
+        var all = new[] { marketMusic, startWaveMusic, GameOverMusic, endWaveMusic, mainMenuMusic };
+        AudioSource old = currentSource != null ? currentSource : GetCurrentlyPlayingOther(target, all);
 
-        // Hedef kaynaðý hazýrla
-        if (!target.isPlaying)
-            target.Play();
+        if (!target.isPlaying) target.Play();
 
         if (instantIn)
         {
-            // Hedef anýnda 1.0 sesle baþlasýn
             target.volume = 1f;
 
-            // Eski parça varsa önce hafif "duck", sonra yumuþak fade-out
             if (old != null && old != target)
             {
-                // anýnda kýs
                 old.volume = Mathf.Min(old.volume, duckLevel);
-
-                float t = 0f;
-                float startVol = old.volume;
+                float t = 0f, startVol = old.volume;
                 while (t < fadeTime)
                 {
-                    t += Time.deltaTime;
-                    float k = t / fadeTime;
-                    if (old) old.volume = Mathf.Lerp(startVol, 0f, k);
+                    t += Time.unscaledDeltaTime; // pause etkilenmesin
+                    if (old) old.volume = Mathf.Lerp(startVol, 0f, t / fadeTime);
                     yield return null;
                 }
                 if (old) old.Stop();
@@ -85,26 +88,41 @@ public class MusicManager : MonoBehaviour
         }
         else
         {
-            // Klasik crossfade: hedef 0'dan fade-in, eski fade-out
             float t = 0f;
             float startOld = old ? old.volume : 0f;
-            target.volume = 0f;
+            float startNew = 0f;
+            target.volume = startNew;
 
             while (t < fadeTime)
             {
-                t += Time.deltaTime;
+                t += Time.unscaledDeltaTime; // fade her durumda akar
                 float k = t / fadeTime;
 
                 if (old) old.volume = Mathf.Lerp(startOld, 0f, k);
-                target.volume = Mathf.Lerp(0f, 1f, k);
+                if (target) target.volume = Mathf.Lerp(startNew, 1f, k);
 
                 yield return null;
             }
 
-            if (old) old.Stop();
-            target.volume = 1f;
+            // hedefi 1.0'da býrak, diðer HER ÞEYÝ kapat
+            if (target) target.volume = 1f;
+            foreach (var s in all)
+            {
+                if (s != null && s != target)
+                {
+                    s.volume = 0f;
+                    s.Stop();
+                }
+            }
         }
 
         currentSource = target;
+    }
+
+    AudioSource GetCurrentlyPlayingOther(AudioSource except, AudioSource[] all)
+    {
+        foreach (var s in all)
+            if (s != null && s != except && s.isPlaying) return s;
+        return null;
     }
 }
