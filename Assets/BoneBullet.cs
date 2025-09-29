@@ -11,6 +11,7 @@ public class BoneBullet : MonoBehaviour
         {
             GameManager manager = GameObject.FindObjectOfType<GameManager>();
             manager.towerHealth -= dammage;
+            manager.UpdateHeath();
             Destroy(gameObject);
         }
     }

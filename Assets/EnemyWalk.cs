@@ -76,7 +76,7 @@ public class EnemyWalk : MonoBehaviour
         }
         else if (enemyType == EnemyType.Far)
         {
-            if (Vector2.Distance(connor.position, transform.position) > 5f)
+            if (Vector2.Distance(connor.position, transform.position) > 10f)
             {
                 transform.position = Vector2.MoveTowards(new Vector2(transform.position.x, transform.position.y),
                     new Vector2(connor.position.x, transform.position.y),
@@ -183,7 +183,7 @@ public class EnemyWalk : MonoBehaviour
     void DrawTrejectory()
     {
         Vector3 origin = launchPoint.position;
-        Vector3 strartVelocity = shootingPower * (launchPoint.right * -1);
+        Vector3 strartVelocity = shootingPower * launchPoint.up;
         lineRender.positionCount = linePoints;
         float time = 0;
         for (int i = 0; i < linePoints; i++)
@@ -206,7 +206,7 @@ public class EnemyWalk : MonoBehaviour
         GameObject boneBullet = Instantiate(bone, transform.position, Quaternion.identity);
         var rb = boneBullet.GetComponent<Rigidbody2D>();
         boneBullet.GetComponent<BoneBullet>().dammage = dammage;
-        if (rb != null) rb.velocity = shootingPower * (launchPoint.right * -1);
+        if (rb != null) rb.velocity = shootingPower * launchPoint.up;
 
         lineRender.enabled = false;
 

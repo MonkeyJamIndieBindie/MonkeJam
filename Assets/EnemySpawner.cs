@@ -21,7 +21,10 @@ public class EnemySpawner : MonoBehaviour
     IEnumerator SpawnEnemy()
     {
         makeEnemy = false;
-        Instantiate(enemy[Random.Range(0,enemy.Length)], transform.position, Quaternion.identity);
+        if (gameManager.levelCount < 2) Instantiate(enemy[0], transform.position, Quaternion.identity);
+        if (gameManager.levelCount >= 2 && gameManager.levelCount < 4) Instantiate(enemy[Random.Range(0, 2)], transform.position, Quaternion.identity);
+        if (gameManager.levelCount >= 4 && gameManager.levelCount < 6) Instantiate(enemy[Random.Range(0, 3)], transform.position, Quaternion.identity);
+        if (gameManager.levelCount >= 6) Instantiate(enemy[Random.Range(0, enemy.Length)], transform.position, Quaternion.identity);
         madeEnemy++;
         yield return new WaitForSeconds(5f);
         makeEnemy = true;
