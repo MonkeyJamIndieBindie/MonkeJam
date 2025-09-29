@@ -52,6 +52,18 @@ public class GameManager : MonoBehaviour
         if (ui != null) ui.PlayIntro(); // Ýlk giriþ: dim + paneller (baþlýk yok)
     }
 
+
+    //Can kontrol
+    private void Update()
+    {
+        if(towerHealth <= 0)
+        {
+            Time.timeScale = 0;
+        }
+    }
+
+
+
     public void UpdateHeath()
     {
         heathText.text = towerHealth.ToString("0");

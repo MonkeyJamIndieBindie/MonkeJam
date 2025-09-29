@@ -141,10 +141,25 @@ public class BodyPillow : MonoBehaviour
             foreach (var h in hits)
             {
                 if (!h) continue;
+
                 // kendi health sistemine göre hasar ver:
                 // var hp = h.GetComponent<EnemyBase>(); if (hp) hp.TakeDamage(hitDammage);
                 DamageText.Show(h.transform.position, $"-{hitDammage:0}", new Color(1f, 0.8f, 0.9f, 1f));
             }
+
+            // ------------------ NEW CODE (Player damage) ------------------
+            // örnek: oyuncunun PlayerHealth component'i var
+            Collider2D[] enemy = Physics2D.OverlapCircleAll(transform.position, aoeRadius);
+            foreach (var p in enemy)
+            {
+                if (p.GetComponent<EnemyHealth>() != null)
+                {
+                    var playerHp = p.GetComponent<EnemyHealth>();
+                    StartCoroutine(playerHp.GetHurt(hitDammage));
+                    DamageText.Show(p.transform.position, $"-{hitDammage:0}", new Color(1f, 0.4f, 0.4f, 1f));
+                }
+            }
+            // ---------------------------------------------------------------
         }
 
         if (impactVfx) Instantiate(impactVfx, transform.position, Quaternion.identity).Play();
@@ -168,6 +183,7 @@ public class BodyPillow : MonoBehaviour
 
         Destroy(gameObject);
     }
+
 
     void OnDrawGizmosSelected()
     {

@@ -104,7 +104,7 @@ public class EnemyHealth : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator GetHurt(float dmg)
+    public IEnumerator GetHurt(float dmg)
     {
         if (isDying) yield break;
 

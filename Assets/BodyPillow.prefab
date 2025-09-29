@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitDammage: 2
-  aoeRadius: 0
+  aoeRadius: 4
   enemyMask:
     serializedVersion: 2
     m_Bits: 0
