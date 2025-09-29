@@ -68,11 +68,7 @@ public class EnemyWalk : MonoBehaviour
         if (enemyType == EnemyType.Roll)
         {
             // Sadece X ekseninde kuleye doðru yaklaþsýn
-            transform.position = Vector2.MoveTowards(
-                transform.position,
-                new Vector2(connor.position.x, transform.position.y),
-                enemySpeed * Time.deltaTime
-            );
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(connor.position.x, transform.position.y), enemySpeed * Time.deltaTime);
         }
         else if (enemyType == EnemyType.Far)
         {
@@ -143,7 +139,7 @@ public class EnemyWalk : MonoBehaviour
             var eh = GetComponent<EnemyHealth>();
             if (eh != null) eh.ForceKillAndLoot(countWaveKill: false);
 
-            // Destroy(gameObject);  // <<< BUNU ARTIK SÝyok etmeyi EnemyHealth yapýyor
+            GetComponent<EnemyHealth>().health -= 1;
         }
     }
 
@@ -174,7 +170,7 @@ public class EnemyWalk : MonoBehaviour
     {
         canHit = false;
         anim.SetBool("Attack", true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         anim.SetBool("Attack", false);
         yield return new WaitForSeconds(coolDown);
         canHit = true;

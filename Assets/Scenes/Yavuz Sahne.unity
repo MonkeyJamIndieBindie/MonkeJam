@@ -3020,7 +3020,7 @@ PrefabInstance:
       objectReference: {fileID: 7781626857337618983}
     - target: {fileID: 3473668671204503511, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: coolDown
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7366628292086792631, guid: 8cca347980e347a43ba74c9768516539, type: 3}
       propertyPath: m_Name

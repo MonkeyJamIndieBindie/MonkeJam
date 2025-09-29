@@ -189,7 +189,7 @@ MonoBehaviour:
   enemySpeed: 3
   hit: 0
   enemyType: 1
-  coolDown: 1.5
+  coolDown: 2
   dammage: 2
   shootingPower: 0
   launchPoint: {fileID: 0}

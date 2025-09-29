@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] float health;
+    public float health;
     [SerializeField] GameObject coinWorldPrefab; // SpriteRenderer + Rigidbody2D + CoinPickup olmalý
     [SerializeField] int minCoins = 2;
     [SerializeField] int maxCoins = 4;
