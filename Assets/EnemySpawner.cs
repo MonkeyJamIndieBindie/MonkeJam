@@ -7,11 +7,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject[] enemy;
     public bool makeEnemy;
     [SerializeField] GameManager gameManager;
+    public int[] maxEnemyForWave;
     public int madeEnemy;
+
 
     private void Update()
     {
-        if(makeEnemy == true && madeEnemy < gameManager.maxEnemyForWave)
+        if(makeEnemy == true && madeEnemy < maxEnemyForWave[gameManager.levelCount])
         {
             StartCoroutine(SpawnEnemy());
         }
@@ -26,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
         if (gameManager.levelCount >= 4 && gameManager.levelCount < 6) Instantiate(enemy[Random.Range(0, 3)], transform.position, Quaternion.identity);
         if (gameManager.levelCount >= 6) Instantiate(enemy[Random.Range(0, enemy.Length)], transform.position, Quaternion.identity);
         madeEnemy++;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1.5f);
         makeEnemy = true;
     }
 }

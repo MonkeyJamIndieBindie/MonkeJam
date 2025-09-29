@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI heathText;
     public GameObject kaleForEnemy;
 
-    public int maxEnemyForWave;
     public int enemyKilledInWave;
 
     public float towerHealth;
@@ -117,7 +116,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckEndWave()
     {
-        if (maxEnemyForWave == enemyKilledInWave && startGame)
+        if (enemySpawner.maxEnemyForWave[levelCount] == enemyKilledInWave && startGame)
             EndWave();
     }
 

@@ -3071,6 +3071,7 @@ MonoBehaviour:
   - {fileID: 7785607276490788890, guid: 8ee83b3ec8308e747a0efc14a8685757, type: 3}
   makeEnemy: 0
   gameManager: {fileID: 2006694698}
+  maxEnemyForWave: 07000000070000000a0000000a0000000f0000000f00000011000000140000001700000032000000
   madeEnemy: 0
 --- !u!4 &1331224787
 Transform:
@@ -9432,6 +9433,10 @@ PrefabInstance:
       propertyPath: mainCanvas
       value: 
       objectReference: {fileID: 4929383403058449549}
+    - target: {fileID: 1785072633982431790, guid: 3df7880e505082b45b7a7d4971ff9988, type: 3}
+      propertyPath: towerHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1785072633982431790, guid: 3df7880e505082b45b7a7d4971ff9988, type: 3}
       propertyPath: closeBetween
       value: 

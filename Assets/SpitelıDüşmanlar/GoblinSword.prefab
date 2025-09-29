@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
-  coinWorldPrefab: {fileID: 0}
+  coinWorldPrefab: {fileID: 4570634144650546936, guid: 9c110a928729f5e41a2254adaa7497fd, type: 3}
   minCoins: 2
   maxCoins: 4
 --- !u!95 &2893263607583805780
